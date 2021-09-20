@@ -19,7 +19,7 @@ jobs:
           username: gosupaper
           password: $PASSWORD  # or project environment variable reference
     steps:
-      - run: docker build . -t gosupaper/nodeappimage
+      - run: docker build -t gosupaper/nodeappimage:latest .
       - run: docker image push gosupaper/nodeappimage:latest
 workflows:
   version: 2
