@@ -15,12 +15,11 @@ jobs:
   push:
     docker:
       - image: docker:17.05.0-ce-git
-        auth:
-          username: gosupaper
-          password: $PASSWORD  # or project environment variable reference
+        
     steps:
       - checkout
       - setup_remote_docker
+      - run: docker login -u "gosupaper" -p $PASSWORD
       - run: docker build . -t gosupaper/nodeappimage:latest
       - run: docker image push gosupaper/nodeappimage:latest
 workflows:
