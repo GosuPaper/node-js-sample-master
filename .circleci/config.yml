@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: buildpack-deps:trusty # primary container
         auth:
-          username: mydockerhub-user
+          username: gosupaper
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
           ENV: CI
