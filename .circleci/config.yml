@@ -17,7 +17,7 @@ jobs:
       - image: ubuntu-1604:202104-01
         auth:
           username: gosupaper
-          password: $DOCKERHUB_PASSWORD  # or project environment variable reference
+          password: $PASSWORD  # or project environment variable reference
     steps:
       - run: docker build . -t nodeappimage
       - run: docker image push nodeappimage:latest
