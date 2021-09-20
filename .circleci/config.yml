@@ -5,7 +5,13 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/backend_api
+    docker:
+      - image: buildpack-deps:trusty # primary container
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+        environment:
+          ENV: CI
     executor: node/default
     steps:
       - checkout
@@ -14,27 +20,10 @@ jobs:
           app-dir: ~/backend_api
           cache-path: node_modules
           override-ci-command: npm i
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  test:
-    docker:
-      - image: cimg/node:current
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Test
-          command: npm test
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
 
