@@ -4,26 +4,17 @@ orbs:
   node: circleci/node@4.7.0
 
 jobs:
-  runApp:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          cache-path: ~/node-js-sample-master/node_modules
-          override-ci-command: npm install
-      - run: npm start &
   buildImage:
-    machine: true
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       # build the application image
      - run: docker build . -t nodeappimage
      # deploy the image
-     - run: docker push nodeappimage
+     - run: docker run -p 1444:8080 nodeappimage
+     - run: curl localhost:1444
 workflows:
   version: 2
   build:
     jobs:
       - buildImage
-      - runApp:
-          requires:
-            - buildImage
