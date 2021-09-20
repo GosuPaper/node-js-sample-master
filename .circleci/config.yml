@@ -12,8 +12,20 @@ jobs:
       - run: docker build . -t nodeappimage
       - run: docker run -d -p 1444:8080 nodeappimage
       - run: curl localhost:1444
+  push:
+    docker:
+      - image: ubuntu-1604:202104-01
+        auth:
+          username: gosupaper
+          password: $DOCKERHUB_PASSWORD  # or project environment variable reference
+    steps:
+      - run: docker build . -t nodeappimage
+      - run: docker image push nodeappimage:latest
 workflows:
   version: 2
   build:
     jobs:
       - buildImage
+      - push:
+          requires:
+            - buildImage
