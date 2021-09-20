@@ -16,7 +16,7 @@ jobs:
     machine: true
     steps:
       # build the application image
-     - run: docker build -t nodeAppImage .
+     - run: docker build . -t nodeAppImage
      # deploy the image
      - run: docker push nodeAppImage
 workflows:
