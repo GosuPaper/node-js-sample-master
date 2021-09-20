@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run: docker build . -t gosupaper/nodeappimage:latest
       - run: docker image push gosupaper/nodeappimage:latest
- workflows:
+workflows:
   version: 2
   build:
     jobs:
